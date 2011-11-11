@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   initialize="lancerApplication()">
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+		
+		<s:HTTPService id="http" url="http://localhost/linkProjetMusee.php?" resultFormat="xml"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import DAO.DaoSalle;
+			
+			import modele.Salle;
+			
+			import mx.collections.ArrayList;
+			public var s:DaoSalle ;
+			//public var affiche:String =s.getToutesLesSalles();
+			
+			public function f():void{
+				
+				//http.send();
+				var a:ArrayList  = s.getToutesLesSalles();
+				//var sa:Salle = a.getItemAt(1) (Salle);
+				area.text= a.length+ "";
+			}
+			public function start():void{
+				
+				//http.send();
+				s.getToutesLesSalles();
+			}
+			
+			public function lancerApplication():void{
+				
+				s = new DaoSalle(); 
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+		
+	<s:TextArea id="area" x="4" y="5" width="430" height="297"/>
+	<s:Button x="442" y="174" label="Bouton" id="button" click="f()" />
+	<s:Button x="442" y="374" label="start" id="buttonstart" click="start()" />
+		
+</s:Application>
