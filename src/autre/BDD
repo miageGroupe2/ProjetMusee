@@ -1,0 +1,86 @@
+-- phpMyAdmin SQL Dump
+-- version 3.4.5
+-- http://www.phpmyadmin.net
+--
+-- Client: localhost
+-- Généré le : Ven 11 Novembre 2011 à 15:12
+-- Version du serveur: 5.5.16
+-- Version de PHP: 5.3.8
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de données: `projetmusee`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `description`
+--
+
+CREATE TABLE IF NOT EXISTS `description` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idOeuvre` int(11) NOT NULL,
+  `path` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `oeuvre`
+--
+
+CREATE TABLE IF NOT EXISTS `oeuvre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `salle`
+--
+
+CREATE TABLE IF NOT EXISTS `salle` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(200) NOT NULL,
+  `idOeuvre` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `salle`
+--
+
+INSERT INTO `salle` (`id`, `nom`, `idOeuvre`) VALUES
+(1, 'salle numero 1', 0),
+(2, 'nom salle 2', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `video`
+--
+
+CREATE TABLE IF NOT EXISTS `video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idOeuvre` int(11) NOT NULL,
+  `path` varchar(200) NOT NULL,
+  `nom` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
