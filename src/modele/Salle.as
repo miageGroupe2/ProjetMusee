@@ -13,13 +13,17 @@ package modele
 			this.id = id ;
 			this.nom = nom ;
 			this.idOeuvre = idOeuvre ;
-			
 		}
 		
 		public function toString():String{
 			
 			var retour:String = this.id + this.nom + this.idOeuvre;
 			return retour ;
+		}
+		
+		public function setOeuvre(oeuvre:Oeuvre):void{
+			
+			this.oeuvre = oeuvre ;
 		}
 		
 		
