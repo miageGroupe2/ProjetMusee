@@ -6,6 +6,7 @@ package modele
 		private var id:int ;
 		private var nom:String ;
 		private var idOeuvre:int ;
+		private var oeuvre:Oeuvre ;
 		
 		public function Salle(id:int, nom:String, idOeuvre:int)
 		{
