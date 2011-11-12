@@ -16,6 +16,7 @@
   <applications>
     <application path="audio.mxml"/>
     <application path="ProjetMusee.mxml"/>
+    <application path="image.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

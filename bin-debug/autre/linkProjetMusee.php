@@ -3,15 +3,25 @@ $connection = mysql_connect('localhost', 'root', '') or die ('cannot reach datab
 //Connexion à la base "test"
 $db = mysql_select_db("projetmusee") or die ("this is not a valid database");
 
-$table = null;
-if(isset($_GET['table'])){
 
-	$table = $_GET['table'];
+$requete = null ;
+if($_GET['table'] == 'salle'){
+
+	$requete = "SELECT * FROM salle ";
+}else if($_GET['table'] == 'oeuvre'){
+
+	$requete = "SELECT oeuvre.id, oeuvre.nom, oeuvre.path FROM oeuvre, salle WHERE salle.idOeuvre=oeuvre.id";
+}else if($_GET['table'] == 'video'){
+
+	$requete = "SELECT video.id, video.nom, video.path, video.idOeuvre, video.description FROM video WHERE video.idOeuvre='".$_GET['idOeuvre']."'";
 }
+
+
 
 //$table = $_GET['id'];
 //Lecture de la base test_mxml
-$result = mysql_query("SELECT * FROM salle");
+$result = mysql_query($requete);
+//$result = mysql_query("SELECT * FROM salle");
 //Calcul du nombre de lignes
 $num_row = mysql_num_rows($result);
 

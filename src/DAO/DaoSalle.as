@@ -1,21 +1,20 @@
 package DAO
 {
+	import Controleur.ControleurPrincipal;
+	
 	import flash.xml.XMLDocument;
 	
 	import modele.Salle;
 	
 	import mx.collections.ArrayList;
 	import mx.controls.Alert;
-	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.http.HTTPService;
-	
-	import spark.components.Button;
-	import spark.components.TextArea;
 
 	public class DaoSalle
 	{
+		
 		
 		private var httpService:HTTPService ;
 		private var xmlList:XMLList;
@@ -23,10 +22,12 @@ package DAO
 		
 		private var resultatRequete:Object ;
 		
+		
 		public function DaoSalle()
 		{
+			
 			this.httpService = new HTTPService();
-			this.httpService.url = "http://localhost/linkProjetMusee.php" ;
+			this.httpService.url = "http://localhost/linkProjetMusee.php?table=salle" ;
 			this.httpService.addEventListener("result", httpResult);
 			this.httpService.addEventListener("fault", httpFault); 
 			this.httpService.resultFormat = "e4x"; 
@@ -56,11 +57,12 @@ package DAO
 		private function httpResult(event:ResultEvent):void { 
 			
 			this.resultatRequete = event.result ;
+			
 		} 
 				
 		private function httpFault(event:FaultEvent):void { 
 			var faultstring:String = event.fault.faultString; 
-			Alert.show("Probleme de connection à la base" + faultstring); 
+			Alert.show("Probleme de connection à la base dans DAOSalle" + faultstring); 
 		}
 	}
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			private var bgLink:URLRequest = new URLRequest("http://localhost/a.png");
+			public var s:String ;
+			public function charger():void{
+				conteneur.unloadAndStop();
+				conteneur.load(bgLink);
+					
+				
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:SWFLoader id="conteneur" x="34" y="29" width="287" height="192"/>
+	
+	<s:Button x="211" y="373" label="Bouton" click="charger()"/>
+	<s:Image x="462" y="133" width="149" height="112"/>
+	
+</s:Application>
