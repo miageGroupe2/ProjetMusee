@@ -35,6 +35,11 @@ package modele
 			return this.idOeuvre;
 		}
 		
+		public function getNom():String{
+			
+			return this.nom;
+		}
+		
 		
 	}
 }

@@ -19,23 +19,45 @@ package DAO
 		private var httpService:HTTPService ;
 		private var xmlList:XMLList;
 		private var listeSalle:ArrayList ;
-		
+		private var controleurPrincipal:ControleurPrincipal ;
 		private var resultatRequete:Object ;
 		
 		
-		public function DaoSalle()
+		public function DaoSalle(controleurPrincipal:ControleurPrincipal)
 		{
-			
+			this.controleurPrincipal = controleurPrincipal ;
 			this.httpService = new HTTPService();
 			this.httpService.url = "http://localhost/linkProjetMusee.php?table=salle" ;
 			this.httpService.addEventListener("result", httpResult);
 			this.httpService.addEventListener("fault", httpFault); 
 			this.httpService.resultFormat = "e4x"; 
 		
+			
+		}
+		
+		public function getSalleByNom(nom:String):Salle{
+			var length:int = this.listeSalle.length ;
+			
+			for (var i:Number = 0; i<length; i++) {
+			
+				var salleCourante:Salle = Salle(this.listeSalle.getItemAt(i));
+				if (salleCourante.getNom() == nom){
+					return salleCourante ;
+				}
+				
+			}
+			return null ;
+		}
+		
+		public function getToutesLesSalles():void{
+			
+			
 			this.httpService.send();
 		}
 		
-		public function getToutesLesSalles():ArrayList{
+		private function httpResult(event:ResultEvent):void { 
+			
+			this.resultatRequete = event.result ;
 			
 			this.listeSalle = new ArrayList();
 			
@@ -51,13 +73,7 @@ package DAO
 				var salle:Salle = new Salle(id, nom, idOeuvre);
 				this.listeSalle.addItem(salle);
 			}
-			return this.listeSalle;
-		}
-		
-		private function httpResult(event:ResultEvent):void { 
-			
-			this.resultatRequete = event.result ;
-			
+			this.controleurPrincipal.chargerListeDesSalles(this.listeSalle);
 		} 
 				
 		private function httpFault(event:FaultEvent):void { 

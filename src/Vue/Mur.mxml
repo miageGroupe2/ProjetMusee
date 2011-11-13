@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   
+			   initialize="lancerApplication()">
+	<s:states>
+		<s:State name="State1"/>
+		<s:State name="AffichageDescription"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+		
+		
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import Controleur.ControleurPrincipal;
+			
+			import DAO.DaoSalle;
+			
+			import modele.Salle;
+			import modele.Video;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.states.AddChild;
+			import mx.states.SetEventHandler;
+			
+			public var s:DaoSalle ;
+			public var controleurPrincipal:ControleurPrincipal ;
+			
+			
+			public function f():void{
+				
+				/*area.text = area.text + "dans f" ;
+				var l:ArrayList = this.controleurPrincipal.getSalle();
+				var size:int = l.length ;
+				area.text = area.text + size ;
+				for (var i:Number = 0; i<size; i++) {
+					
+					area.text = area.text + "\n" + l.getItemAt(i).toString();
+					
+				}*/
+			}
+			public function video():void{
+				
+				area.text = area.text + "\ndans video" ;
+				var v:String = this.controleurPrincipal.getVideo();
+				area.text = area.text + "\n"+v ;
+			}
+			
+			public function lancerApplication():void{
+				
+				//s = new DaoSalle();
+				area.text = area.text + "dans lancerApplication" ;
+				this.controleurPrincipal = new ControleurPrincipal(this);
+				this.controleurPrincipal.demanderChargerListeDesSalles()();
+				
+				
+			}
+			
+			
+			public function afficherListeDesSalles(listeSalle:ArrayList):void{
+				
+				var length:int = listeSalle.length ;
+				var salleCourante:Salle ;
+				
+				var Y:int = 5 ;
+				var b:Button ;
+				area.text = area.text + "dans la vue chargement salle nb :"+length ;
+				
+				for (var i:Number = 0; i<length; i++) {
+					
+					salleCourante = Salle(listeSalle.getItemAt(i));
+					b = new Button();
+					b.label = salleCourante.getNom();
+					
+					b.x = 5 ;
+					b.y = Y + (30 * i);
+					b.addEventListener(MouseEvent.CLICK, afficherSalle);
+					groupe.addElement(b);
+				}
+			}
+			
+			public function afficherSalle(event:MouseEvent):void{
+				
+				
+				var button:Button = Button(event.target);	
+				var salle:Salle = this.controleurPrincipal.chargerSalle(button.label);
+				nomSalle.text = "Bienvenue dans la salle "+ salle.getNom();
+				
+			}
+		
+			
+			public function afficherDescription():void{
+				
+				this.controleurPrincipal.demanderDescription();
+			}
+			
+			
+			
+			
+		]]>
+	</fx:Script>
+	
+		
+	<s:TextArea id="area" x="4" y="5" width="316" height="90"/>
+	<s:Button x="359" y="30" label="Bouton" id="button" click="f()" />
+	<s:Button x="359" y="59" label="video" id="buttonvideo" click="video()" />
+	<s:Image x="10" y="103" width="659" height="423" source="assets/Mur_vide.jpg"
+			 x.State1="11" y.State1="167"/>
+	<s:Button x="458" y="30" label="Description" click="currentState='AffichageDescription';afficherDescription()"/>
+	<s:Panel id="panelDescription" includeIn="AffichageDescription" x="218" y="136" width="510" height="353"
+			 title="Description">
+		<s:Label  x="31" y="17" text="Nom :"/>
+		<s:Label x="31" y="67" text="Année :"/>
+		<s:Label x="31" y="117" text="Histoire :"/>
+		<s:TextInput id="champNom" x="103" y="11"/>
+		<s:TextInput id="champAnnee" x="103" y="61"/>
+		<s:TextInput id="champHistoire" x="103" y="111"/>
+		<s:Button x="428" y="-26" label="Fermer" click="currentState='State1'"/>
+	</s:Panel>
+	<s:Panel id="panelSalle" x="686" y="103" width="250" height="200" title="Salle">
+		<s:Group id="groupe" x="5" y="5" width="200" height="200"/>
+		
+	</s:Panel>
+	<s:TextArea id="nomSalle" x="167" y="123" width="312" height="36"/>
+	
+		
+</s:Application>
