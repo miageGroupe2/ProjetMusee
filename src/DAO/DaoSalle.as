@@ -35,7 +35,24 @@ package DAO
 			
 		}
 		
+		public function getSalleByIdOeuvre(idOeuvre:int):Salle{
+			
+			var length:int = this.listeSalle.length ;
+			
+			for (var i:Number = 0; i<length; i++) {
+					
+				var salleCourante:Salle = Salle(this.listeSalle.getItemAt(i));
+				
+				if (salleCourante.getIdOeuvre() == idOeuvre){
+					
+					return salleCourante ;
+				}				
+			}
+			
+			return null ;
+		}
 		public function getSalleByNom(nom:String):Salle{
+			
 			var length:int = this.listeSalle.length ;
 			
 			for (var i:Number = 0; i<length; i++) {

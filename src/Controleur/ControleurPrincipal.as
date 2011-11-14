@@ -42,12 +42,12 @@ package Controleur
 		
 		public function chargerSalle(nomSalle:String):Salle{
 			
-			this.mur.area.text += "demande du chargement de la salle "+ nomSalle;
 			this.salleAffichee = this.daoSalle.getSalleByNom(nomSalle) ;
 			
 			this.daoOeuvre.getOeuvreById(this.salleAffichee.getIdOeuvre());
 			return this.salleAffichee;
 		}
+		
 		public function chargerListeDesSalles(listeSalle:ArrayList):void{
 					
 			this.listeSalles = listeSalle;
@@ -62,9 +62,28 @@ package Controleur
 		public function chargerOeuvre(oeuvre:Oeuvre):void{
 			
 			this.salleAffichee.setOeuvre(oeuvre);
-			this.mur.nomOeuvre.text = oeuvre.getNom();
+			this.mur.afficherNomOeuvre(oeuvre.getNom());
+		}
+		public function lancerRecherche(recherche:String):void{
+			
+			this.daoOeuvre.getSalleByNomRecherche(recherche);
 		}
 		
+		//permet d'afficher le resultat d'une recherche : DAOOeuvre renvoie l'id 
+		// de l'oeuvre recherchée. -1 si aucun résultat
+		public function lancerRechercheEtape2(id:int):void{
+			
+			if (id == -1){
+				this.mur.afficherResultatRecherche("aucun résultat");
+			}else{
+				
+				var s:Salle = this.daoSalle.getSalleByIdOeuvre(id);
+				
+				var n:String = s.getNom();
+				
+				this.mur.afficherResultatRecherche("Aller dans la salle :" + n);
+			}
+		}
 		
 		public function demanderVideo():void{
 			
