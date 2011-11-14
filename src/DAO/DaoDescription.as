@@ -20,12 +20,10 @@ package DAO
 		private var xmlList:XMLList;
 		private var oeuvre:Oeuvre;
 		private var resultatRequete:Object ;
-		private var controleurPrincipal:ControleurPrincipal ;
 		
-		public function DaoDescription(oeuvre:Oeuvre, controleurPrincipal:ControleurPrincipal)
+		public function DaoDescription(oeuvre:Oeuvre)
 		{
 
-			this.controleurPrincipal = controleurPrincipal ;
 			this.oeuvre = oeuvre ;
 			this.httpService = new HTTPService();
 			
@@ -43,15 +41,21 @@ package DAO
 			var xml:XML= new XML(this.resultatRequete.toString());
 			var xmlList: XMLList = xml.child("row");
 			
-			for (var i:Number = 0; i<xmlList.length(); i++) {
-				
-				var id:int= xmlList[i].id ;
-				var path:String= xmlList[i].path ;
-				var idOeuvre:int= xmlList[i].idOeuvre ;
-				
-				var description:Description = new Description(id, idOeuvre, path);
-				this.controleurPrincipal.afficherDescription(description);
-			}
+			var id:int= xmlList[0].id ;
+			var idOeuvre:int= xmlList[0].idOeuvre ;
+			
+			var tmp:String = xmlList[0].xml;
+			var xmlDescription:XML= new XML(tmp) ;
+			Alert.show(tmp);
+			xmlList = xmlDescription.child("description");
+			
+			var annee:int = xmlDescription[0].annee;
+			var type:String = xmlDescription[0].type;
+			var histoire:String = xmlDescription[0].histoire;
+			var auteur:String = xmlDescription[0].auteur;
+			
+			var description:Description = new Description(id, idOeuvre, annee, auteur, type, histoire);
+			ControleurPrincipal.instance.afficherDescription(description);
 		} 
 		
 		private function httpFault(event:FaultEvent):void { 

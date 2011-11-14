@@ -73,7 +73,7 @@ package DAO
 				var salle:Salle = new Salle(id, nom, idOeuvre);
 				this.listeSalle.addItem(salle);
 			}
-			this.controleurPrincipal.chargerListeDesSalles(this.listeSalle);
+			ControleurPrincipal.instance.chargerListeDesSalles(this.listeSalle);
 		} 
 				
 		private function httpFault(event:FaultEvent):void { 

@@ -1,5 +1,7 @@
 package DAO
 {
+	import Controleur.ControleurPrincipal;
+	
 	import flash.xml.XMLDocument;
 	
 	import modele.Oeuvre;
@@ -30,27 +32,14 @@ package DAO
 			this.httpService.addEventListener("result", httpResult);
 			this.httpService.addEventListener("fault", httpFault); 
 			this.httpService.resultFormat = "e4x"; 
-			this.httpService.url = "http://localhost/linkProjetMusee.php?table=oeuvre" ;
-			this.httpService.send();
+			
 			
 		}
-		public function getOeuvreById(id:int):Oeuvre{
+		public function getOeuvreById(id:int):void{
 			
-			var length:int = this.listeOeuvre.length;
+			this.httpService.url = "http://localhost/linkProjetMusee.php?table=oeuvre&idOeuvre="+id ;
+			this.httpService.send();
 			
-			var oeuvreCourante:Oeuvre ;
-			
-			for (var i:Number = 0; i<length; i++) {
-				
-				oeuvreCourante = Oeuvre(this.listeOeuvre.getItemAt(i));
-				//Alert.show(oeuvreCourante.getId() + " " + id);
-				if (oeuvreCourante.getId() == id){
-					
-					return oeuvreCourante ;
-				}
-			}
-			
-			return null;
 		}
 		
 		private function httpResult(event:ResultEvent):void { 
@@ -60,17 +49,13 @@ package DAO
 			var xml:XML= new XML(this.resultatRequete.toString());
 			var xmlList: XMLList = xml.child("row");
 			
-			for (var i:Number = 0; i<xmlList.length(); i++) {
-				
-				var id:int= xmlList[i].id ;
-				var nom:String = xmlList[i].nom ;
-				var path:String= xmlList[i].path ;
-				
-				var oeuvre:Oeuvre = new Oeuvre(id, nom, path);
-				this.listeOeuvre.addItem(oeuvre);
-			}
 			
+			var id:int= xmlList[0].id ;
+			var nom:String = xmlList[0].nom ;
+			var path:String= xmlList[0].path ;
 			
+			var oeuvre:Oeuvre = new Oeuvre(id, nom, path);
+			ControleurPrincipal.instance.chargerOeuvre(oeuvre);
 		} 
 		
 		private function httpFault(event:FaultEvent):void { 

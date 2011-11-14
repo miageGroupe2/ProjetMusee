@@ -23,24 +23,30 @@ package Controleur
 	public class ControleurPrincipal
 	{
 		
+		public static var instance:ControleurPrincipal ;
 		private var daoSalle:DaoSalle ;
 		private var daoOeuvre:DaoOeuvre ;
 		private var listeSalles:ArrayList ;
 		
 		private var mur:Mur ;
+		//la salle affichée par la vue
+		private var salleAffichee:Salle;
 		
 		public function ControleurPrincipal(mur:Mur)
 		{
 			this.mur = mur ;
 			this.daoSalle = new DaoSalle(this);
 			this.daoOeuvre = new DaoOeuvre();
-			
+			instance = this ;
 		}
 		
 		public function chargerSalle(nomSalle:String):Salle{
 			
 			this.mur.area.text += "demande du chargement de la salle "+ nomSalle;
-			return this.daoSalle.getSalleByNom(nomSalle);
+			this.salleAffichee = this.daoSalle.getSalleByNom(nomSalle) ;
+			
+			this.daoOeuvre.getOeuvreById(this.salleAffichee.getIdOeuvre());
+			return this.salleAffichee;
 		}
 		public function chargerListeDesSalles(listeSalle:ArrayList):void{
 					
@@ -53,45 +59,26 @@ package Controleur
 			this.daoSalle.getToutesLesSalles();
 		}
 		
-		public function chargerOeuvreDansLesSalles():void{
+		public function chargerOeuvre(oeuvre:Oeuvre):void{
 			
-			var length:int = this.listeSalles.length ;
-			
-			for (var i:Number = 0; i<length; i++) {
-				
-				var salleCourante:Salle = Salle(this.listeSalles.getItemAt(i));
-				salleCourante.setOeuvre(this.daoOeuvre.getOeuvreById(salleCourante.getIdOeuvre()));				
-			}
+			this.salleAffichee.setOeuvre(oeuvre);
+			this.mur.nomOeuvre.text = oeuvre.getNom();
 		}
 		
 		
-		public function getVideo():String{
-			
-			var length:int = this.listeSalles.length ;
-			var o:Oeuvre = this.daoOeuvre.getOeuvreById(1) ;
-			new DaoVideo(o);
-			
-			setTimeout(o.getVideo, 4000);
-			
-			
-			return "prout";
-			
-		}
+	
 		
 		public function demanderDescription():void{
 			
-			var o:Oeuvre = this.daoOeuvre.getOeuvreById(1);
-			new DaoDescription(o, this);
+			new DaoDescription(this.salleAffichee.getOeuvre());
 		}
 		
 		public function afficherDescription(description:Description):void{
 			
-			var o:Oeuvre = this.daoOeuvre.getOeuvreById(1);
-			this.mur.champNom.text = o.getNom();
-			this.mur.champAnnee.text = "annee bidon";
-			
+			this.mur.afficherDescription(this.salleAffichee.getOeuvre().getNom(), description);
 		}
 			
+		
 		
 		
 	}

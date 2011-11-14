@@ -11,7 +11,7 @@ package modele
 		private var id:int ;
 		private var nom:String ;
 		private var path:String ;
-		//plus toutes les variables contenues dans le descriptifs textuels
+		
 		
 		private var video:Video ;
 		

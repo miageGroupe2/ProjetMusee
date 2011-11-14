@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
-			   
-			   initialize="lancerApplication()">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   minWidth="955" minHeight="600" initialize="lancerApplication()"
+			   height.State1="716">
 	<s:states>
 		<s:State name="State1"/>
 		<s:State name="AffichageDescription"/>
@@ -20,6 +20,7 @@
 			
 			import DAO.DaoSalle;
 			
+			import modele.Description;
 			import modele.Salle;
 			import modele.Video;
 			
@@ -46,9 +47,6 @@
 			}
 			public function video():void{
 				
-				area.text = area.text + "\ndans video" ;
-				var v:String = this.controleurPrincipal.getVideo();
-				area.text = area.text + "\n"+v ;
 			}
 			
 			public function lancerApplication():void{
@@ -94,11 +92,17 @@
 			}
 		
 			
-			public function afficherDescription():void{
+			public function demanderDescription():void{
 				
 				this.controleurPrincipal.demanderDescription();
 			}
-			
+			public function afficherDescription(nomOeuvre:String, description:Description):void{
+				
+				this.champNom.text = nomOeuvre;
+				this.champAnnee.text = ""+description.getAnnee();
+				this.champAuteur.text =  description.getAuteur() ;
+				this.champHistoire.text = description.getHistoire();
+			}
 			
 			
 			
@@ -109,24 +113,27 @@
 	<s:TextArea id="area" x="4" y="5" width="316" height="90"/>
 	<s:Button x="359" y="30" label="Bouton" id="button" click="f()" />
 	<s:Button x="359" y="59" label="video" id="buttonvideo" click="video()" />
-	<s:Image x="10" y="103" width="659" height="423" source="assets/Mur_vide.jpg"
-			 x.State1="11" y.State1="167"/>
-	<s:Button x="458" y="30" label="Description" click="currentState='AffichageDescription';afficherDescription()"/>
-	<s:Panel id="panelDescription" includeIn="AffichageDescription" x="218" y="136" width="510" height="353"
+	<s:Image x="10" y="203" width="659" height="423" source="assets/Mur_vide.jpg"/>
+	
+	<s:Button x="458" y="30" label="Description" click="currentState='AffichageDescription';demanderDescription()"/>
+	<s:Panel id="panelDescription" includeIn="AffichageDescription" x="104" y="266" width="510" height="353"
 			 title="Description">
-		<s:Label  x="31" y="17" text="Nom :"/>
-		<s:Label x="31" y="67" text="Année :"/>
-		<s:Label x="31" y="117" text="Histoire :"/>
-		<s:TextInput id="champNom" x="103" y="11"/>
-		<s:TextInput id="champAnnee" x="103" y="61"/>
-		<s:TextInput id="champHistoire" x="103" y="111"/>
+		<s:Label  x="32" y="81" text="Nom :"/>
+		<s:Label x="32" y="131" text="Année :"/>
+		<s:Label x="32" y="181" text="Histoire :"/>
+		<s:TextInput id="champNom" x="104" y="75"/>
+		<s:TextInput id="champAnnee" x="104" y="125"/>
+		<s:TextInput id="champHistoire" x="104" y="175" width="296"/>
 		<s:Button x="428" y="-26" label="Fermer" click="currentState='State1'"/>
+		<s:Label x="32" y="37" text="Auteur :"/>
+		<s:TextInput id="champAuteur" x="104" y="32"/>
 	</s:Panel>
 	<s:Panel id="panelSalle" x="686" y="103" width="250" height="200" title="Salle">
 		<s:Group id="groupe" x="5" y="5" width="200" height="200"/>
 		
 	</s:Panel>
-	<s:TextArea id="nomSalle" x="167" y="123" width="312" height="36"/>
+	<s:TextArea id="nomSalle" x="167" y="123" width="312" height="36" />
+	<s:TextArea id="nomOeuvre" x="165" y="155" width="317" height="24"/>
 	
 		
 </s:Application>

@@ -37,20 +37,15 @@ package DAO
 			
 			var xml:XML= new XML(this.resultatRequete.toString());
 			var xmlList: XMLList = xml.child("row");
-			
-			for (var i:Number = 0; i<xmlList.length(); i++) {
 				
-				var id:int= xmlList[i].id ;
-				var nom:String = xmlList[i].nom ;
-				var path:String= xmlList[i].path ;
-				var description:String= xmlList[i].description ;
-				var idOeuvre:int= xmlList[i].idOeuvre ;
-				
-				var video:Video = new Video(id, nom, path, description);
-				this.oeuvre.setVideo(video);
-			}
+			var id:int= xmlList[0].id ;
+			var nom:String = xmlList[0].nom ;
+			var path:String= xmlList[0].path ;
+			var description:String= xmlList[0].description ;
+			var idOeuvre:int= xmlList[0].idOeuvre ;
 			
-			
+			var video:Video = new Video(id, nom, path, description);
+			this.oeuvre.setVideo(video);
 		} 
 		
 		private function httpFault(event:FaultEvent):void { 
