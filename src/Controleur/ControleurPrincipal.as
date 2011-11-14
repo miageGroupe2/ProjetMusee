@@ -66,7 +66,14 @@ package Controleur
 		}
 		
 		
-	
+		public function demanderVideo():void{
+			
+			new DaoVideo(this.salleAffichee.getOeuvre());
+		}
+		public function afficherVideo(video:Video):void{
+			
+			this.mur.afficherVideo(video);
+		}
 		
 		public function demanderDescription():void{
 			

@@ -1,6 +1,8 @@
 package DAO
 {
 	
+	import Controleur.ControleurPrincipal;
+	
 	import modele.Oeuvre;
 	import modele.Video;
 	
@@ -15,13 +17,11 @@ package DAO
 		
 		private var httpService:HTTPService ;
 		private var xmlList:XMLList;
-		private var oeuvre:Oeuvre;
 		
 		private var resultatRequete:Object ;
 		
 		public function DaoVideo(oeuvre:Oeuvre)
 		{
-			this.oeuvre = oeuvre ;
 			this.httpService = new HTTPService();
 			
 			this.httpService.addEventListener("result", httpResult);
@@ -45,7 +45,7 @@ package DAO
 			var idOeuvre:int= xmlList[0].idOeuvre ;
 			
 			var video:Video = new Video(id, nom, path, description);
-			this.oeuvre.setVideo(video);
+			ControleurPrincipal.instance.afficherVideo(video);
 		} 
 		
 		private function httpFault(event:FaultEvent):void { 

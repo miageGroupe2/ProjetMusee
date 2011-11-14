@@ -20,5 +20,19 @@ package modele
 			var retour:String = "toString video :"+this.nom;
 			return retour ;
 		}
+		
+		public function getPath():String{
+			
+			return this.path;
+		}
+		
+		public function getNom():String{
+			
+			return this.nom ;
+		}
+		public function getDescription():String{
+			
+			return this.description ;
+		}
 	}
 }

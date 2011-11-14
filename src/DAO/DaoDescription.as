@@ -46,7 +46,7 @@ package DAO
 			
 			var tmp:String = xmlList[0].xml;
 			var xmlDescription:XML= new XML(tmp) ;
-			Alert.show(tmp);
+			
 			xmlList = xmlDescription.child("description");
 			
 			var annee:int = xmlDescription[0].annee;
