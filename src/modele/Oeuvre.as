@@ -38,6 +38,11 @@ package modele
 			return this.nom ;
 		}
 		
+		public function getPath():String{
+			
+			return this.path ;
+		}
+		
 		public function getVideo():Video{
 			
 			return this.video ;

@@ -62,7 +62,8 @@ package Controleur
 		public function chargerOeuvre(oeuvre:Oeuvre):void{
 			
 			this.salleAffichee.setOeuvre(oeuvre);
-			this.mur.afficherNomOeuvre(oeuvre.getNom());
+			this.mur.afficherOeuvre(oeuvre);
+			
 		}
 		public function lancerRecherche(recherche:String):void{
 			
@@ -104,7 +105,10 @@ package Controleur
 			this.mur.afficherDescription(this.salleAffichee.getOeuvre().getNom(), description);
 		}
 			
-		
+		public function getSalleAffichee():Salle{
+			
+			return this.salleAffichee ;
+		}
 		
 		
 	}

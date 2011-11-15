@@ -20,7 +20,8 @@
 	<fx:Declarations>
 		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
 		
-		
+		<mx:Fade id="fadeDescription" target="{panelDescription}" duration="2000" alphaFrom="0.0" alphaTo="1.0"/>
+		<mx:Fade id="fadeVideo" target="{panelVideo}" duration="2000" alphaFrom="0.0" alphaTo="1.0"/>
 	</fx:Declarations>
 	
 	<fx:Script>
@@ -28,6 +29,7 @@
 			import Controleur.ControleurPrincipal;
 			
 			import modele.Description;
+			import modele.Oeuvre;
 			import modele.Salle;
 			import modele.Video;
 			
@@ -88,9 +90,11 @@
 				panelSalle.title = "Salle : "+ salle.getNom();
 				
 			}
-			public function afficherNomOeuvre(nom:String):void{
+			public function afficherOeuvre(oeuvre:Oeuvre):void{
 				
-				nomOeuvre.text = "Nom de l'oeuvre : " + nom;
+				this.image.source = oeuvre.getPath();
+				
+				this.nomOeuvre.text = "Nom de l'oeuvre : " + oeuvre.getNom();
 			}
 		
 			
@@ -118,16 +122,21 @@
 				this.videoPlayer.source = video.getPath() ;
 				this.textAreaVideo.text = video.getNom() + " : "+ video.getDescription();				
 			}
+			public function f(evt:Event):void{
+				this.image.source = this.controleurPrincipal.getSalleAffichee().getOeuvre().getPath();
+					
+					
+			}
 			
 		]]>
 	</fx:Script>
 	
 	<s:Panel id="panelSalle" includeIn="AffichageDescription,AffichageVideo,AffichageSalle" x="269" y="87" width="717" height="610"
 			 title="Salle">
-		<s:Button id="buttonvideo" x="612" y="55" width="84" label="Video" click="demanderVideo()"/>
-		<s:Image x="30" y="20" width="574" height="423" source="assets/Mur_vide.jpg"/>
+		<s:Button id="buttonvideo" x="612" y="55" width="84" label="Video" click="demanderVideo();fadeVideo.play()"/>
+		<s:Image id="image" x="30" y="20" width="574" height="423" render="f(event)" />
 		
-		<s:Button x="612" y="25" label="Description" click="demanderDescription()"/>
+		<s:Button x="612" y="25" label="Description" click="demanderDescription();fadeDescription.play()"/>
 		<s:Panel id="panelDescription" includeIn="AffichageDescription" x="65" y="33" width="525" height="380"
 				 title="Description">
 			<s:Label  x="32" y="81" text="Nom :"/>
