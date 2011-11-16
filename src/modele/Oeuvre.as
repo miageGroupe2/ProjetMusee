@@ -13,6 +13,7 @@ package modele
 		private var path:String ;
 		
 		
+		private var audio:Audio;
 		private var video:Video ;
 		
 		public function Oeuvre(id:int, nom:String, path:String)
@@ -51,6 +52,16 @@ package modele
 		public function setVideo(video:Video):void{
 			
 			this.video = video ;
+		}
+		
+		public function getAudio():Audio{
+			
+			return this.audio ;
+		}
+		
+		public function setAudio(audio:Audio):void{
+			
+			this.audio = audio ;
 		}
 	}
 	

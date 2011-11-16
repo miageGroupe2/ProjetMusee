@@ -9,6 +9,7 @@ package Controleur
 	
 	import flash.utils.setTimeout;
 	
+	import modele.Audio;
 	import modele.Description;
 	import modele.Oeuvre;
 	import modele.Salle;
@@ -52,7 +53,7 @@ package Controleur
 					
 			this.listeSalles = listeSalle;
 			this.mur.afficherListeDesSalles(this.listeSalles);
-			//this.chargerOeuvreDansLesSalles();
+			
 		}
 		public function demanderChargerListeDesSalles():void{
 			
@@ -93,6 +94,11 @@ package Controleur
 		public function afficherVideo(video:Video):void{
 			
 			this.mur.afficherVideo(video);
+		}
+		
+		public function jouerAudio(audio:Audio):void{
+			
+			this.mur.jouerAudio(audio);
 		}
 		
 		public function demanderDescription():void{
