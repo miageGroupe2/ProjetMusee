@@ -1,5 +1,6 @@
 package Controleur
 {
+	import DAO.DaoAudio;
 	import DAO.DaoDescription;
 	import DAO.DaoOeuvre;
 	import DAO.DaoSalle;
@@ -94,6 +95,11 @@ package Controleur
 		public function afficherVideo(video:Video):void{
 			
 			this.mur.afficherVideo(video);
+		}
+		
+		public function demanderAudio():void{
+			
+			new DaoAudio(this.salleAffichee.getOeuvre());
 		}
 		
 		public function jouerAudio(audio:Audio):void{
