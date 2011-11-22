@@ -10,10 +10,24 @@ if($_GET['table'] == 'salle'){
 	$requete = "SELECT * FROM salle ";
 }else if($_GET['table'] == 'oeuvre'){
 
-	$requete = "SELECT oeuvre.id, oeuvre.nom, oeuvre.path FROM oeuvre, salle WHERE salle.idOeuvre=oeuvre.id";
+	if(isset($_GET['idOeuvre'])){
+	
+		$requete = "SELECT oeuvre.id, oeuvre.nom, oeuvre.path FROM oeuvre WHERE oeuvre.id='".$_GET['idOeuvre']."'";
+	}else if(isset($_GET['nom'])){
+	
+		$requete = "SELECT oeuvre.id, oeuvre.nom, oeuvre.path FROM oeuvre WHERE oeuvre.nom='".$_GET['nom']."'";
+	}
+	
 }else if($_GET['table'] == 'video'){
 
-	$requete = "SELECT video.id, video.nom, video.path, video.idOeuvre, video.description FROM video WHERE video.idOeuvre='".$_GET['idOeuvre']."'";
+	$requete = "SELECT id, nom, path, idOeuvre, description FROM video WHERE video.idOeuvre='".$_GET['idOeuvre']."'";
+}else if($_GET['table'] == 'description'){
+
+	$requete = "SELECT * FROM description WHERE idOeuvre='".$_GET['idOeuvre']."'";
+
+}else if($_GET['table'] == 'audio'){
+
+	$requete = "SELECT * FROM audio WHERE idOeuvre='".$_GET['idOeuvre']."'";
 }
 
 
@@ -56,8 +70,11 @@ else { $w++; }
 }
 echo "</row>";
 }
-if($num_row == "
-1"){ echo '<row></row>';}
+/*
+if($num_row == "1"){
+	echo '<row></row>';
+}
+*/
 echo "</data>";
 mysql_free_result($result);
 ?>

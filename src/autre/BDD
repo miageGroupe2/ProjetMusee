@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le : Ven 11 Novembre 2011 à 15:12
+-- Généré le : Mar 22 Novembre 2011 à 21:22
 -- Version du serveur: 5.5.16
 -- Version de PHP: 5.3.8
 
@@ -23,15 +23,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `audio`
+--
+
+CREATE TABLE IF NOT EXISTS `audio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idOeuvre` int(11) NOT NULL,
+  `path` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `audio`
+--
+
+INSERT INTO `audio` (`id`, `idOeuvre`, `path`) VALUES
+(1, 1, 'http://localhost/ProjetMusee/audio/joconde.mp3'),
+(2, 2, 'http://localhost/ProjetMusee/audio/lecri.mp3'),
+(3, 3, 'http://localhost/ProjetMusee/audio/dejeuner.mp3');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `description`
 --
 
 CREATE TABLE IF NOT EXISTS `description` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idOeuvre` int(11) NOT NULL,
-  `path` varchar(200) NOT NULL,
+  `xml` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `description`
+--
+
+INSERT INTO `description` (`id`, `idOeuvre`, `xml`) VALUES
+(1, 1, '<description>\r\n	<type>tableau</type>\r\n	<auteur>Léonard de Vinci</auteur>\r\n	<annee>1506</annee>\r\n	<histoire>La Joconde est le portrait d''une jeune femme, sur fond d''un paysage montagneux aux horizons lointains et brumeux.</histoire></description>'),
+(2, 2, '<description>\r\n	<type>tableau</type>\r\n	<auteur> Edvard Munch</auteur>\r\n	<annee>1893</annee>\r\n	<histoire>Selon Donald Olson, professeur d''astrophysique à l''université du Texas, ce coucher de soleil d''un rouge flamboyant, était vraisemblablement provoqué par les cendres émises lors de l''explosion du volcan Krakatoa en 1883</histoire></description>'),
+(3, 3, '<description>\r\n	<type>tableau</type>\r\n	<auteur>Édouard Manet</auteur>\r\n	<annee>1863</annee>\r\n	<histoire>Le Déjeuner sur l''herbe est la plus grande toile d''Édouard Manet, celle où il a réalisé le rêve que font tous les peintres : mettre des figures de grandeur nature dans un paysage.</histoire></description>');
 
 -- --------------------------------------------------------
 
@@ -42,8 +73,18 @@ CREATE TABLE IF NOT EXISTS `description` (
 CREATE TABLE IF NOT EXISTS `oeuvre` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(200) NOT NULL,
+  `path` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `oeuvre`
+--
+
+INSERT INTO `oeuvre` (`id`, `nom`, `path`) VALUES
+(1, 'La Joconde', 'http://localhost/ProjetMusee/image/joconde.jpg'),
+(2, 'Le cri', 'http://localhost/ProjetMusee/image/lecri.jpeg'),
+(3, 'Le Déjeuner sur l''herbe', 'http://localhost/ProjetMusee/image/dejeuner.jpg');
 
 -- --------------------------------------------------------
 
@@ -56,15 +97,16 @@ CREATE TABLE IF NOT EXISTS `salle` (
   `nom` varchar(200) NOT NULL,
   `idOeuvre` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `salle`
 --
 
 INSERT INTO `salle` (`id`, `nom`, `idOeuvre`) VALUES
-(1, 'salle numero 1', 0),
-(2, 'nom salle 2', 0);
+(1, 'Salle De Vinci', 1),
+(2, 'Salle Munch', 2),
+(3, 'Salle Manet', 3);
 
 -- --------------------------------------------------------
 
@@ -79,7 +121,16 @@ CREATE TABLE IF NOT EXISTS `video` (
   `nom` varchar(200) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `video`
+--
+
+INSERT INTO `video` (`id`, `idOeuvre`, `path`, `nom`, `description`) VALUES
+(1, 1, 'http://localhost/ProjetMusee/video/joconde.flv', 'Présentation video de "La Joconde"', 'Cette vidéo va vous permettre de connaitre les étapes de réalisation de la Joconde.'),
+(2, 2, 'http://localhost/ProjetMusee/video/Lecri.flv', 'Présentation video de "Le cri"', 'Cette vidéo va permettre d''en apprendre plus sur la réalisation du tableau "Le cri".'),
+(3, 3, 'http://localhost/ProjetMusee/video/Dejeuner.flv', 'Présentation video du "Déjeuner sur l''herbe"', 'Cette vidéo va permettre d''en apprendre plus sur la réalisation du tableau le "Déjeuner sur l''herbe".');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
